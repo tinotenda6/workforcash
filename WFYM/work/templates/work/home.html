@@ -1,0 +1,14 @@
+{% extends "assignments/base.html" %}
+
+{% block content %}
+Welcome to homework-tracker, this is a webApp designed to help teachers assign their students work and to also help teachers and parents track if their studetns are doing the homework provided.
+
+<a class="ml-2" href="#">Parent Login</a>
+<a class="ml-2" href="{% url 'login-page' %}">Student Login</a>
+<a class="ml-2" href="#">Teacher Login</a>
+
+First Time Visitor:
+<a class="ml-2" href="#">Parent Signup</a>
+<a class="ml-2" href="{% url 'signup-page' %}">Student Signup</a>
+<a class="ml-2" href="#">Teacher Signup</a>
+{%endblock content%}

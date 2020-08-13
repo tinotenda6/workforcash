@@ -1,0 +1,31 @@
+{% extends "work/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% if error %}
+{{error}}
+<br />
+<br />
+{% endif %}
+
+<h1> Login </h1> <!--will go in betweeen the content in bse file -->
+
+<form method="POST" action = "{% url 'login-page' %}">
+    {% csrf_token %} <!-- protects code from some form of attack and is also a requirement -->
+    Email:
+    <br />
+    <input type="text" name="email">
+    <br />
+    Password:
+    <br />
+    <input type="password" name="password">
+    <br />
+    <br />
+    <input class="btn btn-primary" type="submit" value="Login">
+</form>
+<div class="border-top pt-3">
+    <small class="text-muted">
+        Need account? <a class="ml-2" href="{% url 'register'%}">Register</a>
+    </small>
+</div>
+
+{% endblock content %}
