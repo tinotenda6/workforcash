@@ -1,1 +1,41 @@
-This is the parent homepage
+{% extends "work/base.html" %}
+
+{% block content %}
+<h2> Welcome {{ user.first_name }}</h2>
+
+<p>Below are your kids, Click on your kid to see all the chores  </p>
+<table class="table table-striped">
+<thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Child name</th>
+      <th scope="col">Jobs done</th>
+      <th scope="col">Due Amount</th>
+      <th scope="col">Jobs left</th>
+    </tr>
+  </thead>
+   <tbody>
+	 {% for kid in kids %}
+	 	{% for i in tot_kids %}
+	 	
+			<tr class='clickable-row' data-href="{% url 'indcl-page'}">
+			<th id="demo{{ i }}" scope="row"></th>
+			<script>
+				var count = {{ i }} + 1;
+				document.getElementById("demo{{ i }}").innerHTML = count;
+			</script>
+			
+			  <td> <a class = "ml-2" href="{% url 'indcl-page' kid.pk %}">{{ kid.user }}</a></td>
+			  <td>Otto</td>
+			  <td>@mdo</td>
+			  <td>yes</td>
+			</tr>
+		{% endfor %}
+    {% empty %}
+        <p>No kids available</p>
+    {% endfor %}
+
+  </tbody>
+</table>
+
+{%endblock content%}

@@ -11,9 +11,9 @@
 
 <form method="POST" action = "{% url 'login-page' %}">
     {% csrf_token %} <!-- protects code from some form of attack and is also a requirement -->
-    Email:
+    Username:
     <br />
-    <input type="text" name="email">
+    <input type="text" name="username">
     <br />
     Password:
     <br />

@@ -1,0 +1,47 @@
+{% extends "work/base.html" %}
+
+{% block content %}
+
+<p> Your saved tasks</p>
+<div class="table-responsive">
+<table class="table table-striped ">
+<thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Task</th>
+      <th scope="col">Payable in $</th>
+      <th scope="col">Date or Time due</th>
+      <th scope="col">Take Action</th>
+    </tr>
+  </thead>
+   <tbody>
+{%for index,task in tasks%}
+	
+			<tr>
+			  <td id="demo{{index}}" scope="row">{{index}}</td>
+			  <script>
+					var count = {{ index }} + 1;
+					document.getElementById("demo{{index}}").innerHTML = count;
+				</script>
+			  <td> {{task.task}}</td>
+			  <td>{{task.payable_amount}}</td>
+			  <td>{{task.date_or_time_due}}</td>
+			 <td> <div style="float:left;" class="col-md-4 col-lg-2"> 
+			<form action="{% url 'complete-tdelete' task.id%}" method="post">
+   				 {% csrf_token %}
+   				 <input type="submit" class=" btn btn-danger btn-sm" value="Delete">
+			</form>
+			</div>
+<div style="float:left;" class="nowrap col-md-4 col-lg-2"><form action="{% url 'update-page' task.pk%}" method="post">
+    {% csrf_token %}
+    <input type="submit" class="btn btn-primary btn-sm" value="Update">
+</form></div></td>
+			</tr>
+			<tr>
+  </tbody>
+{% empty %}
+        <p>No kids available</p>
+{% endfor %}
+</table>
+</div>
+{%endblock content%}

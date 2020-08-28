@@ -1,1 +1,55 @@
-This is the child home page
+{% extends "work/base.html" %}
+
+{% block content %}
+<h2> Welcome {{ user.first_name }}</h2>
+
+<p> Your current set of jobs from {{ user.child_profile.parent_name.user.username}} </p>
+
+{%for index,task in tasks%}
+<p> Your instruction is {{task.instruction}}</p>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Job/Chore</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Due Date and time</th>
+    </tr>
+  </thead>
+  <tbody>
+  	{%for task in task.task.all%}
+    <tr>
+			  <td>{{task}}</td>
+			  <td>{{task.payable_amount}}</td>
+			  <td>{{task.date_or_time_due}}</td>
+			</tr>
+	{% empty %}
+	<p>No tasks available</p>
+{% endfor %}
+ </tbody>
+</table>
+{% endfor %}
+
+ 
+<p class="pt-20 bg-danger"> Your late Jobs! </p>
+<table class="table table-striped table-danger pt-20">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Job/Chore</th>
+      <th scope="col">Hours/Days late</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+    </tr>
+  </tbody>
+</table>
+{%endblock content%}

@@ -1,0 +1,37 @@
+{% extends "work/base.html" %}
+
+{% block content %}
+<h2> Welcome to {{chil}}'s current tasks</h2>
+{%for index,chore in chores%}
+<p> Your instruction for this set is {{chore.instruction}}</p>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Job/Chore</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Due Date and time</th>
+      <th scope="col">Take Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  	{%for chor in chore.task.all%}
+    <tr>
+			  <td>{{chor}}</td>
+			  <td>{{chor.payable_amount}}</td>
+			  <td>{{chor.date_or_time_due}}</td>
+			<td>
+<form action="{% url 'task-remove' chore.id chor chil.id%}" method="post">
+    {% csrf_token %}
+    <input type="submit" class="btn-danger" value="Delete">
+</form>
+</td>
+</tr>
+	
+{% endfor %}
+  </tbody>
+</table>
+{% empty %}
+	<p>No tasks available</p>
+{% endfor %}
+
+{%endblock content%}

@@ -15,7 +15,20 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <!-- Favicons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
+
+<script>
+    // This code activates flatpickr on fields with the 'datetimefield' class when the document has loaded
+    window.addEventListener("DOMContentLoaded", function () {
+        flatpickr(".datetimefield", {
+            enableTime: true,
+            enableSeconds: true,
+            dateFormat: "Y-m-d H:i:S",
+        });
+    });
+</script>
     <meta name="msapplication-config" content="/docs/4.4/assets/img/favicons/browserconfig.xml">
     <meta name="theme-color" content="#563d7c">
 
@@ -51,14 +64,34 @@
 
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class=container>
-                <a class="navbar-brand" href= "#"> WFYM</a>
+            	{% if user.is_authenticated %}
+					{%if user.is_guardian_or_parent %}
+               			 <a class="navbar-brand" href= "{%url 'pghome-page'%}"> WFYM</a>
+               		{%else%}
+               			<a class="navbar-brand" href= "{%url 'chhome-page'%}"> WFYM</a> 
+               		{%endif%}
+               	{%else%}
+               		<a class="navbar-brand" href= "#"> WFYM</a>
+               	{%endif%}
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav ml-auto">
-                        <a class="nav-item nav-link" href="#">Sign up</a>
-                        <a class="nav-item nav-link" href="#">Login</a>
+						{% if user.is_authenticated %}
+							{%if user.is_guardian_or_parent %}
+								<a class="nav-item nav-link" href="{%url 'chores-page'%}">Assign task</a>
+								<a class="nav-item nav-link" href="{%url 'task-page'%}">Create tasks</a>
+								<a class="nav-item nav-link" href="{%url 'alltask-page'%}">View tasks</a>
+							{%else%}
+								<a class="nav-item nav-link" href="{%url 'pgname-page'%}">Enter Parent</a>
+							{%endif%}
+							<a class="nav-item nav-link" href="#">Profile</a>
+							<a class="nav-item nav-link" href="{%url 'logout-page'%}">Logout</a>
+						{%else%}
+						  <a class="nav-item nav-link" href="{%url 'login-page'%}">Login</a>
+						  <a class="nav-item nav-link" href="{%url 'register'%}">Register</a>
+						{%endif%}
 
                     </div>
                 </div>
